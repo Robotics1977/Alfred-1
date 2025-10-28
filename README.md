@@ -18,3 +18,23 @@ Autonomous robot project using Raspberry Pi 5, ROS 2, LIDAR, and Arducam camera 
 - Power system integration
 - ROS 2 motor control node setup
 - LIDAR mapping
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Credits / Sources
+- Amazon product listings for motors, LIDAR, and camera images are used for reference only.
+- Screenshots stored in `/media/` with proper attribution.
