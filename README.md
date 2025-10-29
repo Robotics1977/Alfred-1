@@ -8,7 +8,7 @@ Autonomous robot project using Raspberry Pi 5, ROS 2, LIDAR, and Arducam camera 
 - Arducam IMX519 Autofocus 16MP - Does not work with Ubuntu, changed OS back to Pi OS
 - TB6612FNG Motor Driver
 - Two 12V DC Motors with Encoders
-- 12V → 5V 20A Converter
+- 12V → 5V 10A Converter
 - LiFePO4 Battery (12.8V 12Ah)
 - Caster Wheels
 
