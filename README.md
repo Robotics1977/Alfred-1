@@ -1,11 +1,10 @@
 # Alfred 1
 
-Autonomous robot project using Raspberry Pi 5, ROS 2, LIDAR, and Arducam camera vision.
+Autonomous robot project using Raspberry Pi 5, ROS 2, and LIDAR. Future will add a camera that is compatible with Ubuntu.
 
 ## Current Hardware
-- Raspberry Pi 5 with SSD (Pi OS + ROS 2)
+- Raspberry Pi 5 with SSD (Ubuntu 24.04.3 + ROS 2)
 - RPLIDAR A1M8
-- Arducam IMX519 Autofocus 16MP - Does not work with Ubuntu, changed OS back to Pi OS
 - TB6612FNG Motor Driver
 - Two 12V DC Motors with Encoders
 - 12V → 5V 10A Converter
