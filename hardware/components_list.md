@@ -6,7 +6,6 @@ This document lists all the major hardware components used in the Alfred 1 robot
 |-----------|------------------|----------|-------|--------|-------|
 | Raspberry Pi 5 | Ubuntu + ROS 2, SSD | 1 | ![Raspberry Pi](../media/raspberry_pi.png) | [Official Pi](https://www.raspberrypi.com/) | Main computing unit |
 | RPLIDAR A1M8 | 360° scanning, 12m range | 1 | ![LIDAR](../media/lidar.png) | [Amazon Listing](https://www.amazon.com/example-link) | Obstacle detection / mapping |
-| Arducam IMX519 | 16MP, autofocus, Pi compatible | 1 | ![Camera](../media/arducam.png) | [Amazon Listing](https://www.amazon.com/example-link) | Vision / camera processing |
 | TB6612FNG | Dual motor driver, 12V | 1 | ![Motor Driver](../media/tb6612.png) | [Amazon Listing](https://www.amazon.com/example-link) | Controls 2 DC motors |
 | 12V DC Motors w/ Encoders | 65mm, 500RPM | 2 | ![Motors](../media/motors.png) | [Amazon Listing](https://www.amazon.com/example-link) | Drive wheels |
 | Caster Wheels | 1" swivel | 2 | ![Caster](../media/caster.png) | [Amazon Listing](https://www.amazon.com/example-link) | Front stabilizing wheels |
