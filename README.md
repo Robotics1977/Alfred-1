@@ -1,10 +1,11 @@
 # Alfred 1
 
-Autonomous robot project using Raspberry Pi 5, ROS 2, and LIDAR. Future will add a camera that is compatible with Ubuntu.
+Autonomous robot project using Raspberry Pi 5, ROS 2, and LIDAR. 
 
 ## Current Hardware
 - Raspberry Pi 5 with SSD (Ubuntu 24.04.3 + ROS 2)
 - RPLIDAR A1M8
+- C960 camera
 - TB6612FNG Motor Driver
 - Two 12V DC Motors with Encoders
 - 12V → 5V 10A Converter
