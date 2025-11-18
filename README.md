@@ -27,7 +27,7 @@ This project is part of the AstroGear Labs robotics initiative.
 ### **Power**
 - **12.8V 12Ah LiFePO4 battery**
 - **12V → 5V 10A buck converter**
-- Separate 12V motor bus
+- Separate 12V motor bus for motors
 
 ### **Mechanical**
 - Caster wheels
@@ -64,3 +64,70 @@ This layout will **never be changed**, as required for Alfred 1.
 
 ## 🗂️ Repository Structure
 
+Alfred1/
+├── hardware/ # Wiring diagrams, electronics documentation
+├── media/ # Photos, reference images, diagrams
+├── tests/ # Sensor + motor test code
+└── README.md
+
+
+---
+
+## 🔗 Folder Links
+- [Hardware Documentation](hardware/)
+- [Media](media/)
+- [Tests](tests/)
+
+---
+
+## 🧩 Software Architecture (Planned)
+
+### **ROS 2 Nodes**
+- `motor_controller` — Wheel speed control + encoder feedback  
+- `lidar_node` — Laser scan publisher  
+- `camera_node` — USB camera feed  
+- `navigation_node` — Mapping + path planning  
+- `telemetry_node` — Diagnostics + system monitoring  
+
+### **Arduino Nano Responsibilities**
+- PWM motor control  
+- Ultrasonic ranging  
+- Encoder pulse counting  
+- I2C IMU readings  
+- Serial communications to Pi  
+
+---
+
+## 📅 Roadmap
+
+### **🔨 Hardware**
+- [ ] Platform weight/load testing  
+- [ ] Permanent chassis mounting  
+- [ ] Battery + converter wiring  
+- [ ] Cable management and routing  
+
+### **🧠 Electronics**
+- [ ] Integrate IMU (MPU-6050) into ROS  
+- [ ] Add ultrasonic sensor readings to ROS  
+- [ ] Nano ↔ Pi serial communication  
+- [ ] Encoder-based odometry  
+
+### **🧭 Software**
+- [ ] ROS 2 motor control node  
+- [ ] SLAM using RPLIDAR  
+- [ ] Basic autonomous navigation  
+- [ ] Obstacle avoidance  
+- [ ] Teleop via keyboard/controller  
+
+### **🎥 Media**
+- [ ] Add build photos  
+- [ ] Add wiring diagrams  
+- [ ] Add early movement test videos  
+
+---
+
+## 📝 Credits / Sources
+
+- Amazon product images used only for documentation reference  
+- Images and screenshots stored in `/media/`  
+- Created by **AstroGear Labs** (https://astrogearlabs.com)
