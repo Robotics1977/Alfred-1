@@ -64,11 +64,14 @@ This layout will **never be changed**, as required for Alfred 1.
 
 ## 🗂️ Repository Structure
 
+```plaintext
 Alfred1/
-├── hardware/ # Wiring diagrams, electronics documentation
-├── media/ # Photos, reference images, diagrams
-├── tests/ # Sensor + motor test code
+├── hardware/         # Wiring diagrams, electronics documentation
+├── media/            # Photos, reference images, diagrams
+├── tests/            # Sensor + motor test code
 └── README.md
+```
+
 
 
 ---
