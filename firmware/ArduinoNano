@@ -1,1 +1,198 @@
-Code here
+// === Alfred 1 Motor Firmware - Enhanced Version ===
+// TB6612FNG Motor Driver with improved safety, diagnostics, and control
+
+const int STBY = A4;
+
+// Motor A pins (Left motor)
+const int AIN1 = 8;
+const int AIN2 = 9;
+const int APWM = 10;
+
+// Motor B pins (Right motor)
+const int BIN1 = 11;
+const int BIN2 = 12;
+const int BPWM = 13;
+
+// Configuration
+const int MAX_SPEED = 255;
+const int MIN_SPEED = 0;
+const unsigned long TIMEOUT_MS = 1000; // Stop motors if no command received
+const int DEADBAND = 10; // Ignore speeds below this value
+
+// State tracking
+unsigned long lastCommandTime = 0;
+int currentLeftSpeed = 0;
+int currentRightSpeed = 0;
+bool motorsEnabled = true;
+
+void setup() {
+  Serial.begin(115200);
+  
+  // Initialize all pins
+  pinMode(STBY, OUTPUT);
+  pinMode(AIN1, OUTPUT);
+  pinMode(AIN2, OUTPUT);
+  pinMode(APWM, OUTPUT);
+  pinMode(BIN1, OUTPUT);
+  pinMode(BIN2, OUTPUT);
+  pinMode(BPWM, OUTPUT);
+  
+  // Start with motors stopped
+  stopMotors();
+  digitalWrite(STBY, HIGH); // Enable motor driver
+  
+  Serial.println("Alfred Motor Controller v2.0");
+  Serial.println("Commands: SET <left> <right>, STOP, STATUS, ENABLE, DISABLE");
+  Serial.println("Speed range: -255 to +255");
+}
+
+void loop() {
+  // Safety timeout - stop motors if no command received
+  if (motorsEnabled && (millis() - lastCommandTime > TIMEOUT_MS)) {
+    stopMotors();
+    Serial.println("TIMEOUT: Motors stopped");
+    motorsEnabled = false;
+  }
+  
+  // Process serial commands
+  if (Serial.available()) {
+    String input = Serial.readStringUntil('\n');
+    input.trim();
+    input.toUpperCase();
+    
+    if (input.startsWith("SET")) {
+      handleSetCommand(input);
+    }
+    else if (input == "STOP") {
+      stopMotors();
+      Serial.println("OK: Motors stopped");
+    }
+    else if (input == "STATUS") {
+      printStatus();
+    }
+    else if (input == "ENABLE") {
+      motorsEnabled = true;
+      digitalWrite(STBY, HIGH);
+      lastCommandTime = millis();
+      Serial.println("OK: Motors enabled");
+    }
+    else if (input == "DISABLE") {
+      stopMotors();
+      motorsEnabled = false;
+      digitalWrite(STBY, LOW);
+      Serial.println("OK: Motors disabled");
+    }
+    else if (input == "HELP") {
+      printHelp();
+    }
+    else {
+      Serial.println("ERROR: Unknown command. Type HELP for commands.");
+    }
+  }
+}
+
+void handleSetCommand(String input) {
+  int firstSpace = input.indexOf(' ');
+  int secondSpace = input.indexOf(' ', firstSpace + 1);
+  
+  // Validate command format
+  if (firstSpace == -1 || secondSpace == -1) {
+    Serial.println("ERROR: Invalid format. Use: SET <left> <right>");
+    return;
+  }
+  
+  int left = input.substring(firstSpace + 1, secondSpace).toInt();
+  int right = input.substring(secondSpace + 1).toInt();
+  
+  // Validate speed range
+  if (abs(left) > MAX_SPEED || abs(right) > MAX_SPEED) {
+    Serial.println("ERROR: Speed out of range (-255 to +255)");
+    return;
+  }
+  
+  // Apply deadband
+  if (abs(left) < DEADBAND) left = 0;
+  if (abs(right) < DEADBAND) right = 0;
+  
+  // Set motors
+  setMotorSpeeds(left, right);
+  lastCommandTime = millis();
+  motorsEnabled = true;
+  
+  Serial.print("OK: Left=");
+  Serial.print(currentLeftSpeed);
+  Serial.print(" Right=");
+  Serial.println(currentRightSpeed);
+}
+
+void setMotorSpeeds(int left, int right) {
+  currentLeftSpeed = constrain(left, -MAX_SPEED, MAX_SPEED);
+  currentRightSpeed = constrain(right, -MAX_SPEED, MAX_SPEED);
+  
+  // Motor A (Left)
+  if (currentLeftSpeed > 0) {
+    digitalWrite(AIN1, HIGH);
+    digitalWrite(AIN2, LOW);
+    analogWrite(APWM, currentLeftSpeed);
+  } else if (currentLeftSpeed < 0) {
+    digitalWrite(AIN1, LOW);
+    digitalWrite(AIN2, HIGH);
+    analogWrite(APWM, abs(currentLeftSpeed));
+  } else {
+    // Brake mode
+    digitalWrite(AIN1, HIGH);
+    digitalWrite(AIN2, HIGH);
+    analogWrite(APWM, 0);
+  }
+  
+  // Motor B (Right)
+  if (currentRightSpeed > 0) {
+    digitalWrite(BIN1, HIGH);
+    digitalWrite(BIN2, LOW);
+    analogWrite(BPWM, currentRightSpeed);
+  } else if (currentRightSpeed < 0) {
+    digitalWrite(BIN1, LOW);
+    digitalWrite(BIN2, HIGH);
+    analogWrite(BPWM, abs(currentRightSpeed));
+  } else {
+    // Brake mode
+    digitalWrite(BIN1, HIGH);
+    digitalWrite(BIN2, HIGH);
+    analogWrite(BPWM, 0);
+  }
+}
+
+void stopMotors() {
+  setMotorSpeeds(0, 0);
+  currentLeftSpeed = 0;
+  currentRightSpeed = 0;
+}
+
+void printStatus() {
+  Serial.println("=== MOTOR STATUS ===");
+  Serial.print("Enabled: ");
+  Serial.println(motorsEnabled ? "YES" : "NO");
+  Serial.print("Left Speed: ");
+  Serial.println(currentLeftSpeed);
+  Serial.print("Right Speed: ");
+  Serial.println(currentRightSpeed);
+  Serial.print("Time since last command: ");
+  Serial.print(millis() - lastCommandTime);
+  Serial.println(" ms");
+}
+
+void printHelp() {
+  Serial.println("=== ALFRED MOTOR CONTROLLER ===");
+  Serial.println("Commands:");
+  Serial.println("  SET <left> <right> - Set motor speeds (-255 to +255)");
+  Serial.println("  STOP               - Stop all motors");
+  Serial.println("  STATUS             - Show current status");
+  Serial.println("  ENABLE             - Enable motor driver");
+  Serial.println("  DISABLE            - Disable motor driver");
+  Serial.println("  HELP               - Show this help");
+  Serial.println();
+  Serial.println("Examples:");
+  Serial.println("  SET 100 100   - Forward at ~40% speed");
+  Serial.println("  SET -150 -150 - Reverse at ~60% speed");
+  Serial.println("  SET 200 -200  - Spin in place");
+}Code here
