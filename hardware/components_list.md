@@ -11,7 +11,7 @@ This document lists all the major hardware components used in the Alfred 1 robot
 | Caster Wheels | 1" swivel | 2 | ![Caster](../media/caster.png) | [Tractor Supply| Front stabilizing wheels |
 | LiFePO4 Battery | 12.8V 12Ah | 1 | ![Battery](../media/battery.png) | [Amazon Listing](https://www.amazon.com/example-link) | Power source |
 | 12V → 5V Converter | 20A | 1 | ![Converter](../media/converter.png) | [Amazon Listing](https://www.amazon.com/example-link) | Powers Pi and electronics |
-| MPU 6050 | 1 | ![MPU6050](../media/mpu6050.png) | [Amazon Listing](https://www.amazon.com/example-link) | GPS |
+| MPU 6050 | GPS | 1 | ![MPU6050](../media/mpu6050.png) | [Amazon Listing](https://www.amazon.com/example-link) | GPS |
 
 **Notes:**
 - All images are for reference purposes. Original sources are listed under the “Source” column.
