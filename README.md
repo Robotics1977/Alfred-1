@@ -66,7 +66,9 @@ This layout will **never be changed**, as required for Alfred 1.
 
 ```plaintext
 Alfred1/
-├── hardware/         # Wiring diagrams, electronics documentation
+│
+├──firmware/         # MCU / PPPi firmware, configs, ROS nodes, etc.
+├──hardware/         # Wiring diagrams, electronics documentation
 ├── media/            # Photos, reference images, diagrams
 ├── tests/            # Sensor + motor test code
 └── README.md
