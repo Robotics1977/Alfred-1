@@ -1,1 +1,23 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>alfred_bringup</name>
+  <version>0.0.0</version>
+  <description>Alfred 1 bringup package - single launch file to start all nodes (bridge, I2C, camera, LiDAR)</description>
+  <maintainer email="alfred@todo.todo">alfred</maintainer>
+  <license>MIT</license>
 
+  <exec_depend>alfred_bridge</exec_depend>
+  <exec_depend>alfred_i2c</exec_depend>
+  <exec_depend>usb_cam</exec_depend>
+  <exec_depend>rplidar_ros</exec_depend>
+
+  <test_depend>ament_copyright</test_depend>
+  <test_depend>ament_flake8</test_depend>
+  <test_depend>ament_pep257</test_depend>
+  <test_depend>python3-pytest</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>
